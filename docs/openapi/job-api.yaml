@@ -287,12 +287,15 @@ components:
         firstName:
           type: string
           description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          pattern: "^(.*(\\S)+.*)+$"
         middleName:
           type: string
           description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          pattern: "^(.*(\\S)+.*)+$"
         lastName:
           type: string
           description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          pattern: "^(.*(\\S)+.*)+$"
         email:
           type: string
           description: XXXXXXXXXXXXXXXXXXXXXXXXX

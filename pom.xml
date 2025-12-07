@@ -159,6 +159,33 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- jaxb2-maven-plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>4.0.0</version>
+
+                <configuration>
+                    <addGeneratedAnnotation>true</addGeneratedAnnotation>
+                    <failOnNoSchemas>false</failOnNoSchemas>
+                    <extension>true</extension>
+                    <sourceType>wsdl</sourceType>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>soap-wsdl</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>docs/wsdl/spring.wsdl</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -343,6 +370,14 @@
             <groupId>io.camunda</groupId>
             <artifactId>camunda-spring-boot-starter</artifactId>
             <version>8.9.0-alpha2</version>
+        </dependency>
+
+        <!-- ############################################################################################ -->
+        <!-- SOAP Web Services -->
+        <!-- ############################################################################################ -->
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
         </dependency>
 
         <!-- ############################################################################################ -->

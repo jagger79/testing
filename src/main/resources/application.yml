@@ -61,6 +61,8 @@ management:
     # The interval at which metrics are sent to Elastic. The default is 5 seconds
     step: PT5S
     index: apps-metrics
+  health:
+    mail.enabled: false
 
 logging:
   #structured.format.console: ecs
