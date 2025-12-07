@@ -1,0 +1,81 @@
+spring.application.name: @project.artifactId@
+spring.main.banner-mode: off
+server.port: 8088
+
+spring:
+  cloud:
+    compatibility-verifier:
+      enabled: true
+
+  data.redis:
+    host: redis.osslite.dev
+    lettuce:
+      cluster:
+        refresh:
+          adaptive: true
+          period: PT30S
+    repositories:
+      enabled: false
+
+  # will be automatically configured
+  #  activemq:
+  #    broker-url: tcp://localhost:9876
+  #    in-memory: true
+  artemis:
+    embedded:
+      enabled: true
+      queues:
+        - leadtool
+        - test
+      topics:
+        - leadtool-topic
+      # to not be in-memory
+      persistent: true
+      data-directory: "/mnt/WORK/artemis-data"
+    user: admin
+    password: secret
+
+  rabbitmq:
+    username: admin
+    password: secret
+    host: localhost
+    port: 61616
+
+  mail:
+    host: smtp.seznam.cz
+    ssl.enabled: true
+    username: romankrejci@seznam.cz
+    password: krejcirovi321
+    properties:
+      mail.smtp.starttls.enable: true
+      mail.smtp.auth: true
+      mail.smtp.connectiontimeout: 5000
+      mail.smtp.timeout: 3000
+      mail.smtp.writetimeout: 5000
+
+management:
+  # org.springframework.boot.actuate.autoconfigure.metrics.export.elastic.ElasticProperties
+  elastic.metrics.export:
+    # You will probably want to disable Elastic publishing in a local development profile
+    enabled: true
+    # The interval at which metrics are sent to Elastic. The default is 5 seconds
+    step: PT5S
+    index: apps-metrics
+
+logging:
+  #structured.format.console: ecs
+  level:
+    org.springframework.cloud.sleuth: trace
+    #  org.apache.activemq: trace
+    org.apache.activemq.artemis.nativo: info
+    org.apache.activemq.artemis.core.client: info
+    # disable log messages
+#  org.apache.activemq.audit.message: warn
+
+camunda.client:
+  enabled: false
+  mode: self-managed
+  grpc-address: http://localhost:26500
+  rest-address: http://localhost:8080
+
+api.base-path.prefix: /

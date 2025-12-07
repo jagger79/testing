@@ -1,0 +1,449 @@
+openapi: 3.0.1
+info:
+  version: cardiff
+  title: 1.0.0
+
+servers:
+  - url: http://localhost:8888
+    description: Local env
+
+tags:
+  - name: customers
+    description: Operations on customer resource
+  - name: quotations
+    description: Operations on quotation resource
+  - name: subscriptions
+    description: Operations on subscription resource
+
+paths:
+  /customers:
+    post:
+      tags:
+        - customers
+      summary: Creates customer
+      operationId: createCustomer
+      requestBody:
+        description: Customer information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreateRequest'
+        required: false
+      responses:
+        201:
+          description: Created
+          content: { }
+        400:
+          description: Expected client error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        500:
+          description: Unexpected server error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+
+  /customers/{birthDate}:
+    get:
+      tags:
+        - customers
+      summary: Get customer's detail information
+      operationId: getCustomer
+      parameters:
+        - name: birthDate
+          in: path
+          description: id
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResource'
+        400:
+          description: Expected client error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        500:
+          description: Unexpected server error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+    patch:
+      tags:
+        - customers
+      summary: Updates customer's information
+      operationId: patchCustomer
+      parameters:
+        - name: birthDate
+          in: path
+          description: id
+          required: true
+          schema:
+            type: string
+            format: date
+      requestBody:
+        description: request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerPatchRequest'
+        required: true
+      responses:
+        204:
+          description: No content
+          content: { }
+        400:
+          description: Expected client error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        500:
+          description: Unexpected server error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+
+  /quotations:
+    post:
+      tags:
+        - quotations
+      summary: Creates quotation
+      operationId: createQuotation
+      requestBody:
+        description: Quotation information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuotationCreateRequest'
+        required: true
+      responses:
+        201:
+          description: Created
+          content: { }
+        400:
+          description: Expected client error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        500:
+          description: Unexpected server error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+  /quotations/{birthDate}:
+    get:
+      tags:
+        - quotations
+      summary: Get customer's quotation information
+      operationId: getQuotation
+      parameters:
+        - name: birthDate
+          in: path
+          description: id
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotationResource'
+        400:
+          description: Expected client error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        500:
+          description: Unexpected server error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+
+
+  /subscriptions:
+    post:
+      tags:
+        - subscriptions
+      summary: Creates subscription
+      operationId: createSubscription
+      requestBody:
+        description: Subscription information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuotationCreateRequest'
+        required: true
+      responses:
+        201:
+          description: Created
+          content: { }
+        400:
+          description: Expected client error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        500:
+          description: Unexpected server error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+  /subscriptions/{birthDate}:
+    get:
+      tags:
+        - subscriptions
+      summary: Get customer's subscription information
+      operationId: getSubscription
+      parameters:
+        - name: birthDate
+          in: path
+          description: id
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotationResource'
+        400:
+          description: Expected client error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        500:
+          description: Unexpected server error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+
+####################################################################################
+###################### SCHEMA ######################################################
+####################################################################################
+####################################################################################
+components:
+  schemas:
+    ####################################################################################
+    ###################### CUSTOMER ####################################################
+    ####################################################################################
+    CustomerResource:
+      title: CustomerResource
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        middleName:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        lastName:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        email:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        phoneNumber:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        birthDate:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: date
+
+    CustomerCreateRequest:
+      title: CustomerCreateRequest
+      type: object
+      required:
+        - birthDate
+        - firstName
+        - lastName
+      properties:
+        firstName:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        middleName:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        lastName:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        email:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        phoneNumber:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        birthDate:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: date
+          example: 1979-01-01
+
+    CustomerPatchRequest:
+      title: CustomerPatchRequest
+      type: object
+      properties:
+        firstName:
+          type: string
+          nullable: true
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        middleName:
+          type: string
+          nullable: true
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        lastName:
+          type: string
+          nullable: true
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        email:
+          type: string
+          nullable: true
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+        phoneNumber:
+          type: string
+          nullable: true
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+
+    ####################################################################################
+    ###################### QUOTATION ###################################################
+    ####################################################################################
+    QuotationCreateRequest:
+      title: QuotationCreateRequest
+      type: object
+      required:
+        - customerBirthDate
+        - beginningOfInsurance
+        - insuredAmount
+        - dateOfSigningMortgage
+      properties:
+        customerBirthDate:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: date
+        beginningOfInsurance:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: date
+        insuredAmount:
+          type: integer
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: int64
+        dateOfSigningMortgage:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: date
+
+    QuotationResource:
+      title: QuotationResource
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/CustomerResource'
+        beginningOfInsurance:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: date
+        insuredAmount:
+          type: integer
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: int64
+        dateOfSigningMortgage:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: date
+
+    ####################################################################################
+    ###################### SUBSCRIPTIONS ###############################################
+    ####################################################################################
+    SubscriptionCreateRequest:
+      title: SubscriptionCreateRequest
+      type: object
+      required:
+        - customerBirthDate
+        - startDate
+        - validUntil
+      properties:
+        customerBirthDate:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: date
+        startDate:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: date
+        validUntil:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: date
+
+    SubscriptionResource:
+      title: SubscriptionResource
+      type: object
+      properties:
+        quotation:
+          $ref: '#/components/schemas/QuotationResource'
+        startDate:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: date
+        validUntil:
+          type: string
+          description: XXXXXXXXXXXXXXXXXXXXXXXXX
+          format: date
+
+    ####################################################################################
+    ###################### COMMON ######################################################
+    ####################################################################################
+    ResponseId:
+      title: ResponseId
+      type: object
+      properties:
+        id:
+          type: string
+          description: id of the resource (created, updated or removed)
+
+    ExceptionResponse:
+      title: ExceptionResponse
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        parameters:
+          type: object
+          additionalProperties:
+            type: string
+        path:
+          type: string
+        status:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
