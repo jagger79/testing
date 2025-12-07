@@ -1,5 +1,6 @@
 package cz.osslite.demo.soap.config;
 
+import com.mycompany.hr.schemas.ObjectFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -55,12 +56,10 @@ public class SoapServerConfiguration implements WsConfigurer {
     /**
      * jaxb2 marshaller for objects of wings-pms system located under package "com.bnpparibas.assurance"
      */
-    //@Bean
+    @Bean
     public Jaxb2Marshaller marshaller() {
         final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setClassesToBeBound(
-                //xxxxxxxxxxx.ObjectFactory.class
-        );
+        marshaller.setClassesToBeBound(ObjectFactory.class);
         return marshaller;
     }
 }
