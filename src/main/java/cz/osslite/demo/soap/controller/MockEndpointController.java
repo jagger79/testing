@@ -28,7 +28,7 @@ class MockEndpointController {
         Thread.sleep(millis);
 
         var ret = new HolidayResponse();
-        ret.setNumber(BigInteger.ONE);
+        ret.setNumber(BigInteger.valueOf(millis));
         return ret;
     }
 }
